@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hi_cache/flutter_hi_cache.dart';
 import 'package:trip_practice/dao/login_dao.dart';
-import 'package:trip_practice/page/home_page.dart';
 import 'package:trip_practice/page/login_page.dart';
+
+import 'navigator/tab_navigator_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (LoginDao.getBoardingPass() != null) {
-                return const HomePage();
+                return const TabNavigatorPage();
               } else {
                 return const LoginPage();
               }

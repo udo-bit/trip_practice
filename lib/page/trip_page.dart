@@ -11,7 +11,7 @@ class _TripPageState extends State<TripPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Text('首页'),
+      body: Text('旅拍'),
     );
   }
 }
