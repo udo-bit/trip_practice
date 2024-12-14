@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:trip_practice/dao/login_dao.dart';
+import 'package:trip_practice/util/func_util.dart';
+import 'package:trip_practice/util/navigator_util.dart';
 import 'package:trip_practice/util/view_util.dart';
 import 'package:trip_practice/widget/input_widget.dart';
+import 'package:trip_practice/widget/login_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,6 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String? _username;
   String? _password;
+  bool enabled = false;
   get _bg => <Widget>[
         Positioned.fill(
           child: Image.asset(
@@ -44,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
             onChanged: (text) {
               setState(() {
                 _username = text;
+                _validInput();
               });
             },
           ),
@@ -54,8 +60,17 @@ class _LoginPageState extends State<LoginPage> {
             textInputType: TextInputType.number,
             onChanged: (text) {
               _password = text;
+              _validInput();
             },
           ),
+          hiHeight(height: 15),
+          LoginWidget(
+            enable: enabled,
+            title: "登陆",
+            onPressed: () {
+              _login(context);
+            },
+          )
         ],
       ));
 
@@ -66,5 +81,29 @@ class _LoginPageState extends State<LoginPage> {
         body: Stack(
           children: [..._bg, _content],
         ));
+  }
+
+  void _validInput() {
+    bool btnState = false;
+    if (isNotEmpty(_username) && isNotEmpty(_password)) {
+      btnState = true;
+    } else {
+      btnState = false;
+    }
+    setState(() {
+      enabled = btnState;
+    });
+  }
+
+  void _login(BuildContext context) async {
+    try {
+      var response =
+          await LoginDao.login(username: _username!, password: _password!);
+      debugPrint('登陆成功');
+      //跳转首页
+      context.mounted ? NavigatorUtil.goToHome(context) : null;
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hi_cache/flutter_hi_cache.dart';
+import 'package:trip_practice/dao/login_dao.dart';
+import 'package:trip_practice/page/home_page.dart';
 import 'package:trip_practice/page/login_page.dart';
 
 void main() {
@@ -12,12 +15,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const LoginPage(),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: FutureBuilder<dynamic>(
+          future: HiCache.preInit(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (LoginDao.getBoardingPass() != null) {
+                return const HomePage();
+              } else {
+                return const LoginPage();
+              }
+            } else {
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          },
+        ));
   }
 }
