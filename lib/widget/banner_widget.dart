@@ -1,9 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:trip_practice/model/home_model.dart';
 
 class BannerWidget extends StatefulWidget {
   const BannerWidget({super.key, required this.lists});
-  final List<String> lists;
+  final List<CommonModel> lists;
 
   @override
   State<BannerWidget> createState() => _BannerWidgetState();
@@ -39,11 +40,13 @@ class _BannerWidgetState extends State<BannerWidget> {
     ]);
   }
 
-  Widget _tableItems(String item, double width) {
+  Widget _tableItems(CommonModel item, double width) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        //todo 跳转具体详情页
+      },
       child: Image.network(
-        item,
+        item.icon!,
         fit: BoxFit.cover,
         width: width,
       ),
