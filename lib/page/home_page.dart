@@ -5,8 +5,11 @@ import 'package:trip_practice/dao/home_dao.dart';
 import 'package:trip_practice/dao/login_dao.dart';
 import 'package:trip_practice/model/home_model.dart';
 import 'package:trip_practice/widget/banner_widget.dart';
-import 'package:trip_practice/widget/grid_nav_widget_demo.dart';
 import 'package:trip_practice/widget/local_nav_widget.dart';
+import 'package:trip_practice/widget/sales_box_widget.dart';
+import 'package:trip_practice/widget/sub_nav_widget.dart';
+
+import '../widget/grid_nav_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -41,7 +44,9 @@ class _HomePageState extends State<HomePage> {
         children: [
           BannerWidget(lists: bannerListModel),
           LocalNavWidget(localNavList: localNavListModel),
-          if (gridNavModel != null) GridNavWidgetDemo(gridNav: gridNavModel!),
+          if (gridNavModel != null) GridNavWidget(gridNav: gridNavModel!),
+          SubNavWidget(subNavList: subNavListModel),
+          if (salesBoxModel != null) SalesBoxWidget(salesBox: salesBoxModel!)
         ],
       );
 
