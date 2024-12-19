@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:trip_practice/dao/home_dao.dart';
 import 'package:trip_practice/dao/login_dao.dart';
 import 'package:trip_practice/model/home_model.dart';
+import 'package:trip_practice/page/search_page.dart';
+import 'package:trip_practice/util/navigator_util.dart';
 import 'package:trip_practice/widget/banner_widget.dart';
 import 'package:trip_practice/widget/local_nav_widget.dart';
 import 'package:trip_practice/widget/sales_box_widget.dart';
@@ -87,7 +89,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  get _jumpToSearch => null;
+  void _jumpToSearch() {
+    NavigatorUtil.push(context, const SearchPage());
+  }
 
   @override
   void initState() {

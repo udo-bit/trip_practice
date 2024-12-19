@@ -21,4 +21,8 @@ class NavigatorUtil {
     Navigator.pushReplacement(
         _context!, MaterialPageRoute(builder: (context) => const LoginPage()));
   }
+
+  static pop(BuildContext context) {
+    Navigator.pop(context);
+  }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:trip_practice/util/navigator_util.dart';
 import 'package:trip_practice/widget/search_bar_widget_demo.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  final bool? hideLeft;
+  const SearchPage({super.key, this.hideLeft = false});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -13,13 +15,10 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
-      children: const [
-        SearchBarWidgetDemo(),
+      children: [
         SearchBarWidgetDemo(
-          searchBarType: SearchBarType.home,
-        ),
-        SearchBarWidgetDemo(
-          searchBarType: SearchBarType.homeLight,
+          hideLeft: widget.hideLeft,
+          leftButtonClick: () => NavigatorUtil.pop(context),
         ),
       ],
     ));
