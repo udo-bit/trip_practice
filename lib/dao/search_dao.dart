@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:trip_practice/dao/header_util.dart';
 import 'package:trip_practice/util/navigator_util.dart';
@@ -14,7 +12,6 @@ class SearchDao {
     final response = await http.get(uri, headers: hiHeader());
     Utf8Decoder utf8decoder = const Utf8Decoder();
     String bodyString = utf8decoder.convert(response.bodyBytes);
-    debugPrint(bodyString);
     if (response.statusCode == 200) {
       var result = json.decode(bodyString);
       SearchModel model = SearchModel.fromJson(result);
