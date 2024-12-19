@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trip_practice/widget/search_bar_widget.dart';
+import 'package:trip_practice/widget/search_bar_widget_demo.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -14,15 +14,13 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
         body: ListView(
       children: const [
-        SearchBarWidget(
-          searchBarType: SearchBarType.normal,
-        ),
-        SearchBarWidget(
+        SearchBarWidgetDemo(),
+        SearchBarWidgetDemo(
           searchBarType: SearchBarType.home,
         ),
-        SearchBarWidget(
+        SearchBarWidgetDemo(
           searchBarType: SearchBarType.homeLight,
-        )
+        ),
       ],
     ));
   }
