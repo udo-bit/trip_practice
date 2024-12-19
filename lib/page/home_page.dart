@@ -20,7 +20,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   double appBarAlpha = 0;
   static const appBarScrollOffset = 100;
   List<CommonModel> bannerListModel = [];
@@ -139,4 +140,7 @@ class _HomePageState extends State<HomePage> {
       appBarAlpha = alpha;
     });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
