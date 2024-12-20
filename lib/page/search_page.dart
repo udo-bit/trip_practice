@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:trip_practice/util/navigator_util.dart';
+import 'package:trip_practice/widget/search_item_widget.dart';
 
 import '../dao/search_dao.dart';
 import '../model/search_model.dart';
@@ -11,7 +12,7 @@ class SearchPage extends StatefulWidget {
   final bool? hideLeft;
   final String? keyword;
   final String? hint;
-  const SearchPage({super.key, this.hideLeft = false, this.keyword, this.hint});
+  const SearchPage({super.key, this.hideLeft = true, this.keyword, this.hint});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -20,6 +21,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   SearchModel? searchModel;
   String? keyword;
+
   get _appBar {
     double top = MediaQuery.of(context).padding.top;
     return Container(
@@ -40,9 +42,26 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   get _listView {
-    return ListView(
-      children: [Text(jsonEncode(searchModel))],
+    return MediaQuery.removePadding(
+      removeTop: true,
+      context: context,
+      child: Expanded(
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return _item(index);
+          },
+          itemCount: searchModel?.data?.length ?? 0,
+        ),
+      ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.keyword != null) {
+      _onTextChange(widget.keyword!);
+    }
   }
 
   @override
@@ -63,7 +82,7 @@ class _SearchPageState extends State<SearchPage> {
           searchModel = result;
         });
       }
-      debugPrint(searchModel.toString());
+      debugPrint(json.encode(searchModel));
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -72,6 +91,6 @@ class _SearchPageState extends State<SearchPage> {
   _item(int index) {
     var item = searchModel?.data?[index];
     if (item == null || searchModel == null) return Container();
-    return Text(item.toString());
+    return SearchItemWidget(searchItem: item, searchModel: searchModel!);
   }
 }

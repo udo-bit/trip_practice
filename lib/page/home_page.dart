@@ -91,7 +91,12 @@ class _HomePageState extends State<HomePage>
   }
 
   void _jumpToSearch() {
-    NavigatorUtil.push(context, const SearchPage());
+    NavigatorUtil.push(
+        context,
+        const SearchPage(
+          keyword: '北京',
+          hideLeft: false,
+        ));
   }
 
   @override
