@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:trip_practice/dao/travel_dao.dart';
+
+import '../model/travel_category_model.dart';
 
 class TripPage extends StatefulWidget {
   const TripPage({super.key});
@@ -10,6 +13,7 @@ class TripPage extends StatefulWidget {
 class _TripPageState extends State<TripPage>
     with SingleTickerProviderStateMixin {
   late TabController controller;
+  List<TravelTab> tabs = [];
 
   get _tabBar {
     return const Placeholder();
@@ -20,6 +24,9 @@ class _TripPageState extends State<TripPage>
     super.initState();
     controller = TabController(length: 0, vsync: this);
     // 请求数据
+    TravelDao.getCategory().then((TravelCategoryModel? model) {
+      controller = TabController(length: model?.tabs.length ?? 0, vsync: this);
+    });
   }
 
   @override
