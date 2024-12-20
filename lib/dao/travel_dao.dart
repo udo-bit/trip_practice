@@ -14,7 +14,7 @@ class TravelDao {
     var bodyString = utf8decoder.convert(response.bodyBytes);
     if (response.statusCode == 200) {
       var result = json.decode(bodyString);
-      return TravelCategoryModel.fromJson(result);
+      return TravelCategoryModel.fromJson(result['data']);
     } else {
       if (response.statusCode == 401) {
         NavigatorUtil.goToLogin();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trip_practice/page/home_page.dart';
+import 'package:trip_practice/navigator/tab_navigator_page.dart';
 import 'package:trip_practice/page/login_page.dart';
 
 class NavigatorUtil {
@@ -13,8 +13,8 @@ class NavigatorUtil {
   }
 
   static goToHome(BuildContext context) {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const HomePage()));
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const TabNavigatorPage()));
   }
 
   static goToLogin() {

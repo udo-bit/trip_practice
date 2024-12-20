@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
           future: HiCache.preInit(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
+              debugPrint(LoginDao.boardingPass);
               if (LoginDao.getBoardingPass() != null) {
                 return const TabNavigatorPage();
               } else {
