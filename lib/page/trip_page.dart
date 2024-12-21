@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:trip_practice/dao/travel_dao.dart';
 import 'package:trip_practice/model/travel_category_model.dart';
+import 'package:trip_practice/page/trip_tab_page.dart';
 
 class TripPage extends StatefulWidget {
   const TripPage({super.key});
@@ -16,7 +15,29 @@ class _TripPageState extends State<TripPage> with TickerProviderStateMixin {
   List<TravelTab> tabs = [];
 
   get _tabBar {
-    return Text(json.encode(tabs));
+    return TabBar(
+      controller: controller,
+      isScrollable: true,
+      tabAlignment: TabAlignment.start,
+      labelColor: Colors.black,
+      indicator: UnderlineTabIndicator(
+          borderRadius: BorderRadius.circular(3),
+          borderSide: const BorderSide(color: Color(0xff2fcfbb), width: 3)),
+      indicatorSize: TabBarIndicatorSize.tab,
+      tabs: tabs.map<Tab>((TravelTab tab) {
+        return Tab(
+          text: tab.labelName,
+        );
+      }).toList(),
+    );
+  }
+
+  get _tabBarView {
+    return TabBarView(
+        controller: controller,
+        children: tabs.map((TravelTab tab) {
+          return TripTabPage(groupChannelCode: tab.groupChannelCode);
+        }).toList());
   }
 
   @override
@@ -43,7 +64,8 @@ class _TripPageState extends State<TripPage> with TickerProviderStateMixin {
           color: Colors.white,
           padding: EdgeInsets.only(top: top),
           child: _tabBar,
-        )
+        ),
+        Flexible(child: _tabBarView)
       ],
     ));
   }
